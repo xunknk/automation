@@ -21,5 +21,8 @@ from adminex import views as adminex_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^test/', dooopapp1_views.test, name='test'),
-    url(r'^$', adminex_views.index, name='index')
+    url(r'^$', adminex_views.login, name='login'),
+    url(r'^index.html$', adminex_views.index, name='dashboard'),
+    url(r'^login.html$', adminex_views.login, name='login'),
+    url(r'^eat',adminex_views.eat)
 ]
