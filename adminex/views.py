@@ -1,24 +1,33 @@
 # -*- coding: utf8 -*-
 from django.shortcuts import render
-from login.login import check_user
 from django.contrib.auth import logout as logout_view
 import random
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required(login_url='login.html')
 def index(request):
-	if request.user.is_authenticated:
-		return render(request, 'index.html')
-	else:
-		return render(request, 'login.html')
+	return render(request, 'index.html')
 
 
 def login(request):
 	if request.user.is_authenticated():
 		return render(request, 'index.html')
 	else:
-		res = check_user(request)
-		return res
+		username = request.user.username
+		querystr = request.META['QUERY_STRING']
+		#password = request.user.password
+		#if (username or password) is None:
+		#print(request.user)
+		if not querystr:
+			UserID = '请输入用户名'
+			PassWord = '请输入密码'
+			return render(request, 'login.html', {'UserID': UserID, 'PassWord': PassWord})
+		else:
+			UserID = '用户名或密码不正确'
+			PassWord = '用户名或密码不正确'
+			return render(request, 'login.html', {'UserID': UserID, 'PassWord': PassWord})
 
 
 def logout(request):
