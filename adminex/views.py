@@ -7,40 +7,40 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-@login_required(login_url='login.html')
+@login_required(login_url='login')
 def index(request):
-	return render(request, 'index.html')
+	return render(request, 'adminex/index.html')
 
 
 def login(request):
 	if 'login_user' in request.GET:
 		username = request.GET['login_user']
 		password = request.GET['login_pwd']
-		if (username and password) is True:
+		if bool(username and password) is True:
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				if user.is_active:
-					return render(request, 'index.html')
+					return render(request, 'adminex/index.html')
 
 			else:
 				UserID = '用户名或密码不正确'
 				PassWord = '用户名或密码不正确'
-				return render(request, 'login.html', {'UserID': UserID, 'PassWord': PassWord})
+				return render(request, 'adminex/login.html', {'UserID': UserID, 'PassWord': PassWord})
 		else:
 			UserID = '请输入用户名'
 			PassWord = '请输入密码'
-			return render(request, 'login.html', {'UserID': UserID, 'PassWord': PassWord})
+			return render(request, 'adminex/login.html', {'UserID': UserID, 'PassWord': PassWord})
 	else:
 		UserID = '请输入用户名'
 		PassWord = '请输入密码'
-		return render(request, 'login.html', {'UserID': UserID, 'PassWord': PassWord})
+		return render(request, 'adminex/login.html', {'UserID': UserID, 'PassWord': PassWord})
 
 
 def logout(request):
 	UserID = '请输入用户名'
 	PassWord = '请输入密码'
 	logout_django(request)
-	return render(request, 'login.html', {'UserID': UserID, 'PassWord': PassWord})
+	return render(request, 'adminex/login.html', {'UserID': UserID, 'PassWord': PassWord})
 
 
 def eat(request):
@@ -50,6 +50,11 @@ def eat(request):
 				 '牛丼', '老碗']
 	long_list = len(food_list)
 	food = food_list[random.randint(0, long_list - 1)]
-	return render(request, 'login.html', {'food': food, 'UserID': UserID, 'PassWord': PassWord})
+	return render(request, 'adminex/login.html', {'food': food, 'UserID': UserID, 'PassWord': PassWord})
+
+
+def registration(request):
+	if request.method == 'GET':
+		return render(request, 'adminex/registration.html')
 
 # return  HttpResponse(food)

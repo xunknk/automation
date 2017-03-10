@@ -23,5 +23,6 @@ urlpatterns = [
 	url(r'^index.html$', adminex_views.index, name='dashboard'),
 	url(r'^login.html$', adminex_views.login, name='login'),
 	url(r'^eat', adminex_views.eat),
-	url(r'^logout$', adminex_views.logout)
+	url(r'^logout$', adminex_views.logout),
+	url(r'^registration.html',adminex_views.registration),
 ]
