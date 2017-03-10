@@ -16,7 +16,7 @@ def login(request):
 	if 'login_user' in request.GET:
 		username = request.GET['login_user']
 		password = request.GET['login_pwd']
-		if bool(username and password) is True:
+		if (username and password) is True:
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				if user.is_active:
